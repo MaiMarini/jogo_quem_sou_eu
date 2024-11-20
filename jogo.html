@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Inclua jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Quem sou eu?</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div
+      class="top d-flex justify-content-center align-items-center p-3 text-center"
+    >
+      <h1>
+        <img
+          src="imagens/procurar.png"
+          alt="Lupa em cores pasteis com um ponto de interrogação no centro da lente"
+          style="width: 50px; height: auto"
+        />
+        Quem sou eu?
+      </h1>
+    </div>
+    <div id="usuarios-lista">
+      <!-- Aqui você vai adicionar dinamicamente os cards dos usuários -->
+    </div>
+
+    <div id="chat">
+      <ul id="messages"></ul>
+      <form id="form" action="">
+        <input id="input" autocomplete="off" /><button>Enviar</button>
+      </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+
+      var messages = document.getElementById("messages");
+      var form = document.getElementById("form");
+      var input = document.getElementById("input");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (input.value) {
+          socket.emit("chat message", input.value);
+          input.value = "";
+        }
+      });
+
+      socket.on("chat message", function (msg) {
+        var item = document.createElement("li");
+        item.textContent = msg;
+        messages.appendChild(item);
+        messages.scrollTop = messages.scrollHeight;
+      });
+    </script>
+    <script src="jogo.js"></script>
+  </body>
+</html>

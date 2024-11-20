@@ -1,0 +1,9 @@
+{
+  "name": "quem-sou-eu",
+  "version": "0.0.1",
+  "description": "Quem sou eu",
+  "dependencies": {
+    "express": "^4.21.1",
+    "socket.io": "^4.8.1"
+  }
+}
